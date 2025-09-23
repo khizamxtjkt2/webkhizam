@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <style>
+  /* Animasi muncul dari bawah ke atas */
+  @keyframes fadeUp {
+    0% {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  .reveal.active {
+    animation: fadeUp 1s ease forwards;
+  }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const revealElements = document.querySelectorAll(
+    ".profil-card, .content-box, .gallery-item"
+  );
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("active");
+      }
+    });
+  }, { threshold: 0.2 });
+
+  revealElements.forEach(el => {
+    el.classList.add("reveal");
+    observer.observe(el);
+  });
+});
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portofolio Dan Biodata</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;0,400&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+/* FONT IMPORTS & GLOBAL STYLES */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Montserrat:wght@400;500;700&display=swap');
+:root {
+  --primary-color: #e53935; /* Strong Red */
+  --accent-color: #4A4A4A; /* Dark Gray */
+  --text-dark: #2c2c2c;
+  --text-light: #f4f4f4;
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --border-subtle: 1px solid #ddd;
+  --shadow-subtle: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Merriweather', serif;
+  color: var(--text-dark);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  cursor: default;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+/* MAIN NAVIGATION BAR */
+.main-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  border-bottom: var(--border-subtle);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  z-index: 200;
+  padding: 15px 30px;
+  box-sizing: border-box;
+}
+
+.main-nav a {
+  color: var(--text-dark);
+  text-decoration: none;
+  font-size: 0.9em;
+  font-weight: 500;
+  padding: 10px 25px;
+  border: 1px solid var(--accent-color);
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  background: var(--card-bg);
+}
+
+.main-nav a:hover {
+  color: var(--text-light);
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-subtle);
+}
+
+.main-nav a i {
+  margin-right: 8px;
+  color: var(--primary-color);
+  transition: color 0.3s ease;
+}
+
+.main-nav a:hover i {
+  color: var(--text-light);
+}
+
+.nav-logo {
+  color: var(--primary-color);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5em;
+  font-weight: 700;
+  margin-right: auto;
+  letter-spacing: 1px;
+}
+
+/* MAIN CONTENT */
+.main {
+  margin-top: 100px;
+  min-height: 100vh;
+  position: relative;
+  z-index: 10;
+}
+
+.main-section {
+  padding: 60px;
+  padding-top: 80px;
+  margin-top: -80px;
+  transition: background-color 0.5s ease;
+}
+
+.contact-section h2 {
+    color: var(--primary-color);
+}
+.contact-icons a {
+    color: var(--text-light);
+}
+.contact-icons a i {
+    color: var(--primary-color);
+}
+
+
+/* PAGE TITLE */
+.page-title-container {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.page-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.5em;
+  font-weight: 700;
+  color: var(--primary-color);
+  display: inline-block;
+  padding: 10px 30px;
+  border-bottom: 2px solid var(--primary-color);
+  letter-spacing: 2px;
+}
+
+/* PROFIL CARD & CONTENT BOX */
+.profil-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+}
+
+.profil-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 40px;
+  width: 90%;
+  max-width: 900px;
+  box-shadow: var(--shadow-subtle);
+  border: 1px solid var(--border-subtle);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profil-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.profil-card .header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 40px;
+  margin-bottom: 30px;
+  padding-bottom: 25px;
+  border-bottom: 1px dashed var(--accent-color);
+}
+
+.profil-card img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 4px solid var(--primary-color);
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profil-card .info {
+  text-align: left;
+}
+
+.profil-card h3 {
+  font-size: 2.5em;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0 0 8px 0;
+}
+
+.profil-card .job-title {
+  color: var(--accent-color);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.1em;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.profil-card .biodata-section {
+  line-height: 1.8;
+  color: var(--text-dark);
+  font-size: 1em;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.biodata-section h4 {
+  color: var(--primary-color);
+  border-bottom: 1px solid var(--accent-color);
+  padding-bottom: 10px;
+  margin-top: 30px;
+  font-weight: 700;
+  font-size: 1.2em;
+}
+
+.content-box {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 40px;
+  max-width: 900px;
+  margin: 40px auto;
+  box-shadow: var(--shadow-subtle);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-dark);
+  line-height: 1.8;
+}
+
+.content-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.content-box ul li {
+  margin-bottom: 15px;
+  position: relative;
+  padding-left: 30px;
+  font-size: 1em;
+}
+
+.content-box ul li i {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  color: var(--primary-color);
+  font-size: 1.1em;
+}
+
+.content-box p {
+  line-height: 1.8;
+  color: var(--text-dark);
+  font-size: 1em;
+}
+
+.content-box .key-point {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.data-visualization {
+  display: flex;
+  justify-content: space-around;
+  gap: 30px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.chart-container {
+  width: 100%;
+  max-width: 450px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  font-size: 0.9em;
+}
+
+th, td {
+  border: 1px solid var(--border-subtle);
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: var(--accent-color);
+  color: var(--text-light);
+}
+
+td {
+  background-color: #fcfcfc;
+}
+
+.gallery {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.gallery-item {
+  background: var(--card-bg);
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 320px;
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gallery-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.gallery-item-info {
+  padding: 15px;
+}
+
+.gallery-item-info h4 {
+  margin: 0 0 8px 0;
+  font-size: 1.1em;
+  color: var(--primary-color);
+}
+
+.gallery-item-info p {
+  margin: 0;
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+
+/* FOOTER & KONTAK */
+.contact-section {
+  padding: 60px 20px;
+  border-top: 2px solid var(--primary-color);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+
+/* --- GOOGLE TRANSLATE CUSTOM BARS STYLE --- */
+.custom-translate-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 201;
+  background: var(--card-bg);
+  border-radius: 50px;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-subtle);
+  transition: all 0.3s ease;
+  display: flex;
+  gap: 0;
+  padding: 5px;
+}
+
+.lang-button {
+  background: transparent;
+  color: var(--text-dark);
+  border: none;
+  border-radius: 50px;
+  padding: 8px 15px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.lang-button:hover {
+  background: var(--primary-color);
+  color: var(--text-light);
+}
+
+/* Google Translate original element - hidden */
+.goog-te-gadget-simple {
+  display: none !important;
+}
+
+/* Responsive */
+@media screen and (max-width: 1024px) {
+  .main-nav {
+    flex-wrap: wrap;
+    height: auto;
+    justify-content: center;
+    padding: 10px;
+  }
+  .main-nav a {
+    font-size: 0.8em;
+    padding: 8px 18px;
+    margin: 5px;
+  }
+  .nav-logo {
+    display: none;
+  }
+  .page-title {
+    font-size: 2em;
+    padding: 8px 20px;
+  }
+  .profil-card .header {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+  .profil-card .info {
+    text-align: center;
+  }
+  .profil-card img {
+    width: 120px;
+    height: 120px;
+  }
+  .profil-card h3 {
+    font-size: 2em;
+  }
+  .content-box {
+    padding: 30px;
+  }
+  .data-visualization {
+    flex-direction: column;
+    align-items: center;
+  }
+  .contact-section h2 {
+    font-size: 1.8em;
+  }
+  .contact-icons {
+    gap: 25px;
+  }
+  .contact-icons a i {
+    font-size: 2.5em;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main {
+    padding: 20px;
+    margin-top: 100px;
+  }
+  .page-title {
+    font-size: 1.5em;
+    padding: 6px 15px;
+  }
+  .profil-card,
+  .content-box {
+    padding: 20px;
+  }
+  .profil-card img {
+    width: 100px;
+    height: 100px;
+  }
+  .profil-card h3 {
+    font-size: 1.5em;
+  }
+  .profil-card .job-title {
+    font-size: 0.9em;
+  }
+  .main-nav {
+    padding: 8px;
+  }
+  .main-nav a {
+    padding: 6px 12px;
+  }
+  .contact-section {
+    padding: 40px 15px;
+  }
+  .contact-section h2 {
+    font-size: 1.5em;
+  }
+  .contact-icons {
+    gap: 15px;
+  }
+  .contact-icons a i {
+    font-size: 2em;
+  }
+}
+</style>
+</head>
+<body>
+
+
+<div class="main-nav">
+  <span class="nav-logo">PORTFOLIO</span>
+  <a href="#profil"><i class="fas fa-user-circle"></i> Profil</a>
+  <a href="#visi"><i class="fas fa-eye"></i> Visi & Misi</a>
+  <a href="#sejarah"><i class="fas fa-history"></i> Sejarah</a>
+  <a href="#data"><i class="fas fa-database"></i> Data</a>
+  <a href="#analisis-data"><i class="fas fa-chart-bar"></i> Analisis</a>
+  <a href="#pencapaian"><i class="fas fa-award"></i> Pencapaian</a>
+  <a href="#proyek"><i class="fas fa-palette"></i> Portofolio</a>
+  <a href="#kontak"><i class="fas fa-address-book"></i> Kontak</a>
+</div>
+
+<div class="main">
+  <div id="profil" class="main-section">
+    <div class="page-title-container">
+      <br>
+      <h1 class="page-title"><i class="fas fa-id-card-alt"></i> PORTOFOLIO DAN BIODATA</h1>
+    </div>
+    <section class="profil-container">
+      <div class="profil-card">
+        <div class="header">
+          <img src="freya.jpg" alt="M. Choirul Khizam">
+          <div class="info">
+            <h3>M. Choirul Khizam</h3>
+            <p class="job-title">- Pelajar SMK -</p>
+          </div>
+        </div>
+        <div class="biodata-section">
+          <pre>Selamat datang di <span class="key-point">Portofolio Dan</span> saya. Saya adalah <span class="key-point">M. Choirul Khizam</span>, seorang individu yang berdedikasi dan bersemangat dalam menjelajahi frontier teknologi. Dengan latar belakang pendidikan di Teknik Komputer dan Jaringan, saya memiliki hasrat kuat untuk desain, kreativitas, dan membangun <span class="key-point">solusi digital inovatif</span>. Portofolio ini adalah antarmuka menuju perjalanan edukasi dan pengembangan keahlian saya, mencakup visi, misi, dan pencapaian.
+<br><br>
+BIODATA
+Nama Lengkap : M. Choirul Khizam
+Tanggal Lahir : Pekalongan, 31 Agustus 2009
+Kewarganegaraan : Indonesia (ID)
+Alamat : Jl.ky Khaeron, Desa Pacar, Tirto, Kab. Pekalongan RT/RW 04/01
+Kontak Email : <span class="key-point">zamxtjktt222@gmail.com</span>
+Kontak Telepon : <span class="key-point">085879562839</span>
+<br><br>
+PENDIDIKAN
+- SMK (Saat Ini) : SMK Ma’arif NU Tirto, Kabupaten Pekalongan | Jurusan: Teknik Komputer dan Jaringan (TKJ)
+- SMP : SMP Negeri 1 Tirto (2024)
+- SD : SD Negeri Pacar (2021)
+<br><br>
+KEAHLIAN INTI & SET KETERAMPILAN
+- Desain Grafis: Mampu melakukan rendering visual, manipulasi citra digital, dan kreasi aset grafis menggunakan software standar industri.
+          </pre>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="visi" class="main-section">
+    <div class="page-title-container">
+      <h2 class="page-title"><i class="fas fa-eye"></i> Visi &<br>Misi & Moto Hidup</h2>
+    </div>
+    <div class="content-box">
+      <p>Menjadi <span class="key-point">pelopor teknologi muda</span> yang kompeten dan adaptif di <span class="key-point">era revolusi digital</span>, dengan kemampuan menciptakan solusi inovatif, mendorong batasan teknologi, dan memberikan dampak positif pada ekosistem digital global.</p>
+      <br>
+      <h4><i class="fas fa-bullseye"></i> MISI</h4>
+      <ul>
+        <li><i class="fas fa-sync-alt"></i> <span class="key-point">Upgrade Skillset:</span> Meningkatkan pengetahuan dan keterampilan secara berkelanjutan di bidang jaringan, pemrograman, dan keamanan siber melalui studi mandiri dan sertifikasi.</li>
+        <li><i class="fas fa-flask"></i> <span class="key-point">Inovasi Proyek:</span> Mengembangkan prototipe dan proyek-proyek berbasis teknologi yang inovatif, relevan, dan memecahkan masalah nyata.</li>
+        <li><i class="fas fa-users-cog"></i> <span class="key-point">Kolaborasi Jaringan:</span> Membangun dan menjaga jejaring profesional dengan para ahli dan komunitas teknologi.</li>
+        <li><i class="fas fa-shield-alt"></i> <span class="key-point">Etika Digital:</span> Mengimplementasikan praktik terbaik dan etika profesional dalam setiap aspek pekerjaan dan interaksi digital.</li>
+      </ul>
+      <br>
+      <h4><i class="fas fa-lightbulb"></i> MOTO HIDUP</h4>
+      <p>"<span class="key-point">Setiap langkah kecil</span> Hari Ini,perlahan akan membawa kita menuju <span class="key-point">Mimpi Besar</span> di Masa Depan. // </p>
+    </div>
+  </div>
+
+  <div id="sejarah" class="main-section">
+    <div class="page-title-container">
+      <h2 class="page-title"><i class="fas fa-history"></i> Sejarah Hidup</h2>
+    </div>
+    <div class="content-box">
+      <p>Saya memulai perjalanan pendidikan di bangku sekolah dasar, kemudian melanjutkan ke SMP Negeri 1 Tirto. Di sana, saya mulai tertarik pada dunia teknologi, khususnya komputer dan jaringan. Ketertarikan ini mendorong saya untuk memilih jurusan Teknik Komputer dan Jaringan (TKJ) di SMK Ma’arif NU Tirto, Kabupaten Pekalongan. Saat ini, saya fokus untuk mengembangkan keahlian teknis dan berpartisipasi aktif dalam berbagai kegiatan untuk mengasah kreativitas dan kemampuan problem-solving saya.</p>
+    </div>
+  </div>
+
+  <div id="data" class="main-section">
+    <div class="page-title-container">
+      <h2 class="page-title"><i class="fas fa-database"></i> Kumpulan Data Pribadi</h2>
+    </div>
+    <div class="content-box">
+      <h4><i class="fas fa-dice"></i> Hobi (Frekuensi per Minggu)</h4>
+      <ul>
+        <li>Mendesain logo: 4 kali</li>
+        <li>Mendengarkan Musik: 2 kali</li>
+        <li>Bermain Game: 1 kali</li>
+      </ul>
+      <h4><i class="fas fa-trophy"></i> Prestasi (Jumlah)</h4>
+      <ul>
+        <li>Akademik: Belum ada (sedang berproses)</li>
+        <li>Non-akademik:Belum ada (sedang berproses)</li>
+      </ul>
+      <h4><i class="fas fa-running"></i> Aktivitas/Kegiatan Rutin (Jumlah per Minggu)</h4>
+      <ul>
+        <li>Sekolah: 5 hari</li>
+        <li>Mengikuti Lomba: 1 hari</li>
+        <li>Kerja Kelompok: 2 hari</li>
+        <li>Organisasi: 2 hari</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="analisis-data" class="main-section">
+    <div class="page-title-container">
+      <h2 class="page-title"><i class="fas fa-chart-bar"></i> Analisis Data Pribadi</h2>
+    </div>
+    <div class="content-box">
+      <p>Berikut adalah analisis sederhana dari data pribadi yang telah dikumpulkan.</p>
+      <div class="data-visualization">
+        <div class="chart-container">
+          <h4><i class="fas fa-table"></i> Tabel Hasil Perhitungan</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>Analisis Data Pribadi</th>
+                <th>Hasil Perhitungan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Rata-rata Aktivitas per Minggu</td>
+                <td>1.43 aktivitas/hari</td>
+              </tr>
+              <tr>
+                <td>Modus Hobi (Paling Sering)</td>
+                <td>Mendesain Logo</td>
+              </tr>
+              <tr>
+                <td>Persentase Prestasi Akademik</td>
+                <td>33.33%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="chart-container">
+          <h4><i class="fas fa-chart-pie"></i> Diagram Proporsi Prestasi</h4>
+          <canvas id="prestasiChart"></canvas>
+          <p>Diagram ini menunjukkan bahwa prestasi non-akademik saya mendominasi, mencerminkan minat dan pencapaian yang kuat di luar bidang akademis formal.</p>
+        </div>
+        <div class="chart-container">
+          <h4><i class="fas fa-chart-bar"></i> Diagram Frekuensi Hobi</h4>
+          <canvas id="hobiChart"></canvas>
+          <p>Diagram batang ini menggambarkan frekuensi hobi per minggu. Hobi yang paling sering dilakukan (modus) adalah Mendesain Logo.</p>
+        </div>
+        <div class="chart-container">
+          <h4><i class="fas fa-chart-line"></i> Diagram Kurva Hobi</h4>
+          <canvas id="hobiLineChart"></canvas>
+          <p>Diagram kurva ini menunjukkan tren frekuensi hobi per minggu.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="pencapaian" class="main-section">
+    <div class="page-title-container">
+      <h2 class="page-title"><i class="fas fa-award"></i> Log Pencapaian</h2>
+    </div>
+    <div class="content-box">
+      <p>Rekam jejak keberhasilan saya di bidang desain grafis dan teknologi:</p>
+      <ul>
+        <li><i class="fas fa-handshake"></i> Berhasil menyelesaikan 10+ proyek freelance pembuatan logo untuk klien individu dan UMKM.</li>
+      </ul>
+            <ul>
+        <li><i class="fas fa-handshake"></i> Juara 2 Lomba Tari Tradisional ( Porseni IPNU IPPNU Kec.Tirto. )</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="proyek" class="main-section">
+    <div class="page-title-container">
+      <h2 class="page-title"><i class="fas fa-palette"></i> Portofolio Desain & Arsip Proyek</h2>
+    </div>
+    <div class="content-box">
+      <p>Berikut adalah beberapa contoh proyek desain logo yang telah saya kerjakan sebagai freelancer. Setiap desain mencerminkan pendekatan unik untuk memenuhi kebutuhan visual klien.</p>
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="desainlogo1.png" alt="Desain Logo 1">
+          <div class="gallery-item-info">
+            <h4>Logo 1</h4>
+            <p>Desain logo ini menggabungkan gaya graffiti modern dengan elemen tipografi tebal dan dinamis, menciptakan identitas visual yang berani, ekspresif, dan penuh energi. Sentuhan warna kontras dan bentuk yang mengalir memberikan kesan urban, kreatif, serta merepresentasikan kebebasan berekspresi dalam seni jalanan..</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="desainlogo2.png">
+          <div class="gallery-item-info">
+            <h4>Logo 2</h4>
+            <p>Desain logo ini menggabungkan gaya graffiti hardcore dengan nuansa monokrom hitam dan putih, menonjolkan kesan tegas, garang, dan penuh karakter. Garis tajam serta tipografi bertekstur kasar menghadirkan energi mentah khas street art, sekaligus memberikan identitas visual yang kuat dan berani..</p>
+          </div>
+        </div>
+      </div>
+      <p style="margin-top: 40px; text-align: center;">Untuk melihat lebih banyak karya, silakan hubungi saya melalui email.</p>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center; margin:40px 0;">
+  <!-- Judul di atas border -->
+  <h2 style="display:inline-block; border-bottom:3px solid red; padding-bottom:5px; margin-bottom:20px;">
+    <i class="fas fa-address-book"></i> Hubungi Saya
+  </h2>
+  
+  <!-- Kotak dengan border + shadow -->
+  <section id="kontak" style="margin:0 auto; padding:30px; max-width:500px; border:2px solid #ccc; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.2); text-align:center;">
+    
+    <!-- WhatsApp -->
+    <a href="https://wa.me/6285879562839" target="_blank" style="color:black; text-decoration:none; display:inline-block; margin:20px;">
+      <i class="fab fa-whatsapp" style="font-size:40px;"></i><br>
+      <span>WhatsApp</span>
+    </a>
+    
+    <!-- Instagram -->
+    <a href="https://www.instagram.com/tricky.dsg" target="_blank" style="color:black; text-decoration:none; display:inline-block; margin:20px;">
+      <i class="fab fa-instagram" style="font-size:40px;"></i><br>
+      <span>Instagram</span>
+    </a>
+    
+    <!-- Email -->
+    <a href="mailto:trickydsg@gmail.com" target="_blank" style="color:black; text-decoration:none; display:inline-block; margin:20px;">
+      <i class="fas fa-envelope" style="font-size:40px;"></i><br>
+      <span>Email</span>
+    </a>
+    
+  </section>
+  
+  <!-- Penutup -->
+  <p style="margin-top:25px; font-size:1.1rem; color:#333;">
+    Jangan ragu untuk menghubungi saya melalui WhatsApp atau Instagram di atas. Kami siap membantu kebutuhan desain dan konsultasi kamu.
+  </p>
+</div>
+
+<script>
+const profileData = {
+  // Data di sini tidak perlu diubah karena sudah dimuat langsung di HTML
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderCharts();
+  setupCustomTranslator();
+});
+
+function renderCharts() {
+  const hobiData = {
+    labels: ['Mendesain logo', 'Mendengarkan Musik', 'Bermain Game'],
+    datasets: [{
+      label: 'Frekuensi per Minggu',
+      data: [4, 2, 1],
+      backgroundColor: [
+        'rgba(229, 57, 53, 0.8)', /* Red */
+        'rgba(74, 74, 74, 0.8)',
+        'rgba(220, 220, 220, 0.8)'
+      ],
+      borderColor: [
+        '#e53935',
+        '#4A4A4A',
+        '#DCDCDC'
+      ],
+      borderWidth: 1
+    }]
+  };
+
+  const prestasiData = {
+    labels: ['Akademik (33.33%)', 'Non-Akademik (66.67%)'],
+    datasets: [{
+      label: 'Jumlah Prestasi',
+      data: [1, 2],
+      backgroundColor: [
+        'rgba(229, 57, 53, 0.8)', /* Red */
+        'rgba(74, 74, 74, 0.8)'
+      ],
+      borderColor: [
+        '#e53935',
+        '#4A4A4A'
+      ],
+      borderWidth: 1
+    }]
+  };
+
+  // Data for the Line Chart (same as Hobi data)
+  const hobiLineData = {
+    labels: ['Mendesain logo', 'Bermain Game', 'Mendengarkan Musik'],
+    datasets: [{
+      label: 'Frekuensi per Minggu',
+      data: [4, 2, 1],
+      fill: false,
+      borderColor: '#e53935', /* Red */
+      tension: 0.1
+    }]
+  };
+
+  const hobiConfig = {
+    type: 'bar',
+    data: hobiData,
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: { color: 'rgba(0, 0, 0, 0.1)' },
+          ticks: { color: 'var(--text-dark)' }
+        },
+        x: {
+          grid: { color: 'rgba(0, 0, 0, 0.1)' },
+          ticks: { color: 'var(--text-dark)' }
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        title: {
+          display: true,
+          text: 'Frekuensi Hobi per Minggu',
+          color: 'var(--primary-color)',
+          font: { size: 16 }
+        }
+      }
+    }
+  };
+
+  const prestasiConfig = {
+    type: 'pie',
+    data: prestasiData,
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+          labels: { color: 'var(--text-dark)' }
+        },
+        title: {
+          display: true,
+          text: 'Proporsi Prestasi',
+          color: 'var(--primary-color)',
+          font: { size: 16 }
+        }
+      }
+    }
+  };
+
+  const hobiLineConfig = {
+    type: 'line',
+    data: hobiLineData,
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: { color: 'rgba(0, 0, 0, 0.1)' },
+          ticks: { color: 'var(--text-dark)' }
+        },
+        x: {
+          grid: { color: 'rgba(0, 0, 0, 0.1)' },
+          ticks: { color: 'var(--text-dark)' }
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        title: {
+          display: true,
+          text: 'Tren Frekuensi Hobi per Minggu',
+          color: 'var(--primary-color)',
+          font: { size: 16 }
+        }
+      }
+    }
+  };
+
+  const hobiChart = new Chart(
+    document.getElementById('hobiChart'),
+    hobiConfig
+  );
+
+  const prestasiChart = new Chart(
+    document.getElementById('prestasiChart'),
+    prestasiConfig
+  );
+
+  const hobiLineChart = new Chart(
+    document.getElementById('hobiLineChart'),
+    hobiLineConfig
+  );
+}
+
+// Fungsi untuk setup tombol terjemahan kustom
+function setupCustomTranslator() {
+  const langButtons = document.querySelectorAll('.lang-button');
+  const checkGoogleTranslateReady = setInterval(() => {
+    const googTeCombo = document.querySelector('.goog-te-combo');
+    if (googTeCombo) {
+      clearInterval(checkGoogleTranslateReady);
+      langButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const targetLang = button.dataset.lang;
+          for (let i = 0; i < googTeCombo.options.length; i++) {
+            if (googTeCombo.options[i].value === targetLang) {
+              googTeCombo.value = targetLang;
+              if (document.createEvent) {
+                const event = document.createEvent('HTMLEvents');
+                event.initEvent('change', true, true);
+                googTeCombo.dispatchEvent(event);
+              } else if (googTeCombo.fireEvent) {
+                googTeCombo.fireEvent('onchange');
+              }
+              break;
+            }
+          }
+        });
+      });
+    }
+  }, 100);
+}
+</script>
+</body>
+</html>
