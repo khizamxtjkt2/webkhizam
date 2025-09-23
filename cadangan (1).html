@@ -1,0 +1,1707 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-key="meta_title">Portofolio & Biodata</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* Global colors & fonts */
+    :root {
+      --primary-color: #e53935;
+      --accent-color: #f4f4f4;
+      --text-dark: #2c2c2c;
+      --text-light: #f4f4f4;
+      --bg-dark: #121212;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --border-subtle: 1px solid rgba(255, 255, 255, 0.1);
+      --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+    
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Merriweather', serif;
+      color: var(--text-light);
+      /* Background hitam pekat */
+      background-color: #000000;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    /* Latar belakang video (opsional) */
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+      opacity: 0.3; /* Atur transparansi agar tidak mengganggu */
+    }
+
+    /* Canvas untuk efek rasi bintang */
+    #constellation-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--primary-color);
+      font-weight: 700;
+      margin: 0 0 12px 0;
+    }
+    
+    p {
+      margin: 0 0 12px 0;
+      line-height: 1.7;
+      color: var(--text-light);
+    }
+    
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    a:hover {
+      color: var(--text-light);
+    }
+    
+    .main-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 14px 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      border-bottom: 1px solid var(--primary-color);
+      z-index: 300;
+      box-sizing: border-box;
+      flex-wrap: wrap;
+    }
+    
+    .nav-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      color: var(--primary-color);
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+    }
+    
+    .main-nav a {
+      color: var(--text-light);
+      border: 1px solid var(--primary-color);
+      padding: 8px 16px;
+      border-radius: 50px;
+      background: transparent;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+    }
+    
+    .main-nav a:hover {
+      background: var(--primary-color);
+      color: var(--bg-dark);
+      border-color: var(--primary-color);
+    }
+    
+    .translator-container {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-left: 12px;
+    }
+    
+    .lang-button {
+      background: transparent;
+      border: 1px solid var(--primary-color);
+      color: var(--text-light);
+      padding: 6px 12px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+    
+    .lang-button:hover {
+      background: var(--primary-color);
+      color: var(--bg-dark);
+      border-color: var(--primary-color);
+    }
+    
+    .main {
+      margin-top: 100px;
+      padding: 30px 24px;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    
+    .main-section {
+      padding: 40px 0;
+    }
+    
+    .page-title-container {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .page-title {
+      display: inline-block;
+      padding: 8px 22px;
+      border-bottom: 2px solid var(--primary-color);
+      font-size: 2rem;
+    }
+    
+    .profil-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+    
+    .profil-card {
+      width: 100%;
+      max-width: 920px;
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: var(--shadow-subtle);
+      border: var(--border-subtle);
+    }
+    
+    .profil-card .header {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      padding-bottom: 18px;
+      border-bottom: 1px dashed var(--primary-color);
+    }
+    
+    .profil-card img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--primary-color);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .profil-card .info {
+      text-align: left;
+    }
+    
+    .biodata-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-top: 30px;
+    }
+    
+    .biodata-block {
+      flex: 1 1 45%;
+      min-width: 250px;
+    }
+    
+    .biodata-block ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .biodata-block li {
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+    
+    .biodata-block li b {
+      color: var(--primary-color);
+      min-width: 120px;
+      display: inline-block;
+    }
+    
+    .content-box {
+      width: 100%;
+      max-width: 920px;
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: var(--shadow-subtle);
+      border: var(--border-subtle);
+      margin: 30px auto;
+    }
+    
+    .key-point {
+      color: var(--primary-color);
+      font-weight: 700;
+    }
+    
+    #visi ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    #visi ul li {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+    }
+    
+    #visi ul li i {
+      color: var(--primary-color);
+      font-size: 1.2rem;
+      margin-top: 5px;
+    }
+    
+    .moto-box {
+      background: rgba(229, 57, 53, 0.1);
+      border-left: 5px solid var(--primary-color);
+      padding: 20px;
+      margin-top: 30px;
+      font-style: italic;
+      color: var(--text-light);
+      position: relative;
+    }
+    
+    .moto-box::before {
+      content: '\201C';
+      font-family: serif;
+      font-size: 4rem;
+      color: rgba(229, 57, 53, 0.2);
+      position: absolute;
+      top: -10px;
+      left: 10px;
+      line-height: 1;
+      z-index: -1;
+    }
+    
+    .moto-box p {
+      margin: 0;
+    }
+    
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    
+    .gallery-item {
+      width: 320px;
+      background: var(--card-bg);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      padding-bottom: 10px;
+    }
+    
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    .contact-section {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 2px solid var(--primary-color);
+      margin-top: 40px;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 0.95rem;
+    }
+    
+    th,
+    td {
+      border: 1px solid #444;
+      padding: 10px;
+      text-align: left;
+      color: var(--text-light);
+    }
+    
+    th {
+      background: var(--primary-color);
+      color: var(--text-dark);
+      border-color: var(--primary-color);
+    }
+    
+    footer {
+      padding: 30px 20px;
+      background-color: transparent;
+      border-top: 2px solid var(--primary-color);
+      text-align: center;
+    }
+    
+    .footer-content-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .contact-item {
+      color: var(--text-light);
+      transition: color 0.3s ease;
+    }
+    
+    .contact-item i {
+      font-size: 36px;
+      margin-bottom: 8px;
+      transition: transform 0.3s ease;
+      color: var(--primary-color);
+    }
+    
+    .contact-item:hover i {
+      transform: scale(1.1);
+      color: var(--text-light);
+    }
+    
+    .contact-item span {
+      display: block;
+      font-size: 0.9rem;
+    }
+    
+    .contact-footer-text {
+      margin-top: 20px;
+      font-size: 1rem;
+      color: var(--text-light);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    @media (max-width: 900px) {
+      .profil-card .header {
+        flex-direction: column;
+        text-align: center;
+      }
+      .profil-card .info {
+        text-align: center;
+      }
+      .nav-logo {
+        margin-right: 0;
+      }
+      .translator-container {
+        margin-top: 10px;
+        width: 100%;
+        justify-content: flex-end;
+      }
+    }
+    
+    body.rtl {
+      direction: rtl;
+      text-align: right;
+    }
+    
+    body.rtl .main-nav a {
+      direction: rtl;
+    }
+    
+    body.rtl .lang-button {
+      direction: ltr;
+    }
+    
+    body.rtl .profil-card .header {
+      flex-direction: row-reverse;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="constellation-canvas"></canvas>
+  
+  <div class="main-nav">
+    <span class="nav-logo" data-key="nav_portfolio">PORTFOLIO</span>
+    <a href="#profil">
+      <i class="fas fa-user-circle"></i>
+      <span data-key="nav_profil">Profil</span>
+    </a>
+    <a href="#visi">
+      <i class="fas fa-eye"></i>
+      <span data-key="nav_visi">Visi & Misi</span>
+    </a>
+    <a href="#sejarah">
+      <i class="fas fa-history"></i>
+      <span data-key="nav_sejarah">Sejarah</span>
+    </a>
+    <a href="#data">
+      <i class="fas fa-database"></i>
+      <span data-key="nav_data">Data</span>
+    </a>
+    <a href="#analisis-data">
+      <i class="fas fa-chart-bar"></i>
+      <span data-key="nav_analisis">Analisis</span>
+    </a>
+    <a href="#pencapaian">
+      <i class="fas fa-award"></i>
+      <span data-key="nav_pencapaian">Pencapaian</span>
+    </a>
+    <a href="#proyek">
+      <i class="fas fa-palette"></i>
+      <span data-key="nav_portofolio">Portofolio</span>
+    </a>
+    <a href="#kontak">
+      <i class="fas fa-address-book"></i>
+      <span data-key="nav_kontak">Kontak</span>
+    </a>
+    <div class="translator-container">
+      <button class="lang-button" data-lang="id">ID</button>
+      <button class="lang-button" data-lang="jv">JV</button>
+      <button class="lang-button" data-lang="en">EN</button>
+      <button class="lang-button" data-lang="ar">AR</button>
+    </div>
+  </div>
+  <main class="main">
+    <section id="profil" class="main-section">
+      <div class="page-title-container">
+        <h1 class="page-title">
+          <i class="fas fa-id-card-alt"></i>
+          <span data-key="title_main">PORTOFOLIO DAN BIODATA</span>
+        </h1>
+      </div>
+      <section class="profil-container">
+        <div class="profil-card reveal">
+          <div class="header">
+            <img src="khizam.jpg" alt="M. Choirul Khizam" data-key-alt="alt_photo" />
+            <div class="info">
+              <h3 data-key="name_full">M. Choirul Khizam</h3>
+              <p class="job-title" data-key="job_title">- Pelajar SMK -</p>
+            </div>
+          </div>
+          <p data-key="welcome_paragraph" style="margin-top: 20px;">
+            Selamat datang di <b data-key="bold_portfolio">Portofolio</b> saya. Saya
+            adalah <b data-key="bold_name">M. Choirul Khizam</b>, seorang
+            individu yang berdedikasi dan bersemangat dalam menjelajahi
+            frontier teknologi. Dengan latar belakang pendidikan di Teknik
+            Komputer dan Jaringan, saya memiliki hasrat kuat untuk desain,
+            kreativitas, dan membangun
+            <b data-key="bold_innovative">solusi digital inovatif</b>.
+            Portofolio ini adalah antarmuka menuju perjalanan edukasi dan
+            pengembangan keahlian saya, mencakup visi, misi, dan pencapaian.
+          </p>
+          <div class="biodata-section">
+            <div class="biodata-block">
+              <h4 data-key="heading_biodata">BIODATA</h4>
+              <ul>
+                <li>
+                  <b data-key="label_name">Nama Lengkap:</b>
+                  <span data-key="value_name">M. Choirul Khizam</span>
+                </li>
+                <li>
+                  <b data-key="label_birth">Tanggal Lahir:</b>
+                  <span data-key="value_birth">Pekalongan, 31 Agustus 2009</span>
+                </li>
+                <li>
+                  <b data-key="label_citizen">Kewarganegaraan:</b>
+                  <span data-key="value_citizen">Indonesia (ID)</span>
+                </li>
+                <li>
+                  <b data-key="label_address">Alamat:</b>
+                  <span data-key="value_address">Desa Pacar RT/RW 4/1, Jalan Ky. Khaeron, Kabupaten Pekalongan,
+                    Jawa Tengah</span>
+                </li>
+                <li>
+                  <b data-key="label_email">Email:</b>
+                  <span>
+                    <a href="mailto:zamxtjktt222@gmail.com">zamxtjktt222@gmail.com</a>
+                  </span>
+                </li>
+                <li>
+                  <b data-key="label_phone">Telepon:</b>
+                  <span data-key="value_phone">085879562839</span>
+                </li>
+              </ul>
+            </div>
+            <div class="biodata-block">
+              <h4 data-key="heading_pendidikan">PENDIDIKAN</h4>
+              <ul>
+                <li data-key="edu_smK">
+                  SMK (Saat Ini): SMK Ma’arif NU Tirto, Kab. Pekalongan
+                </li>
+                <li data-key="edu_smp">
+                  SMP: SMP Negeri 1 Tirto (2024)
+                </li>
+                <li data-key="edu_sd">
+                  SD: SD Negeri Pacar (2021)
+                </li>
+              </ul>
+              <h4 data-key="heading_skills">KEAHLIAN INTI</h4>
+              <ul>
+                <li data-key="skill_graphic">
+                  Desain Grafis: Rendering visual, manipulasi citra digital, dan
+                  kreasi aset grafis menggunakan software standar industri.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+    <section id="visi" class="main-section">
+      <div class="page-title-container">
+        <h2 class="page-title">
+          <i class="fas fa-eye"></i>
+          <span data-key="title_visi">Visi & Misi</span>
+        </h2>
+      </div>
+      <div class="content-box reveal">
+        <p data-key="visi_paragraph">
+          Menjadi <span class="key-point" data-key="key_pelopor">pelopor teknologi muda</span>
+          yang kompeten dan adaptif di <span class="key-point" data-key="key_era">era revolusi
+            digital</span>, dengan kemampuan menciptakan solusi inovatif, mendorong
+          batasan teknologi, dan memberikan dampak positif pada ekosistem digital
+          global.
+        </p>
+        <h4 data-key="sub_misi">MISI</h4>
+        <ul>
+          <li>
+            <i class="fas fa-sync-alt"></i>
+            <span data-key="misi_1">
+              <span class="key-point" data-key="misi_1_key">Upgrade Skillset:</span>
+              Meningkatkan pengetahuan dan keterampilan secara berkelanjutan di
+              bidang jaringan, pemrograman, dan keamanan siber melalui studi mandiri
+              dan sertifikasi.
+            </span>
+          </li>
+          <li>
+            <i class="fas fa-flask"></i>
+            <span data-key="misi_2">
+              <span class="key-point" data-key="misi_2_key">Inovasi Proyek:</span>
+              Mengembangkan prototipe dan proyek-proyek berbasis teknologi yang
+              inovatif, relevan, dan memecahkan masalah nyata.
+            </span>
+          </li>
+          <li>
+            <i class="fas fa-users-cog"></i>
+            <span data-key="misi_3">
+              <span class="key-point" data-key="misi_3_key">Kolaborasi Jaringan:</span>
+              Membangun dan menjaga jejaring profesional dengan para ahli dan
+              komunitas teknologi.
+            </span>
+          </li>
+          <li>
+            <i class="fas fa-shield-alt"></i>
+            <span data-key="misi_4">
+              <span class="key-point" data-key="misi_4_key">Etika Digital:</span>
+              Mengimplementasikan praktik terbaik dan etika profesional dalam setiap
+              aspek pekerjaan dan interaksi digital.
+            </span>
+          </li>
+        </ul>
+        <h4 data-key="sub_moto">MOTO HIDUP</h4>
+        <div class="moto-box">
+          <p data-key="moto_text">
+            "<span class="key-point" data-key="moto_small">Setiap langkah kecil</span>
+            Hari Ini, perlahan akan membawa kita menuju <span class="key-point" data-key="moto_big">Mimpi Besar</span> di
+            Masa Depan."
+          </p>
+        </div>
+      </div>
+    </section>
+    <section id="sejarah" class="main-section">
+      <div class="page-title-container">
+        <h2 class="page-title">
+          <i class="fas fa-history"></i>
+          <span data-key="title_sejarah">Sejarah Hidup</span>
+        </h2>
+      </div>
+      <div class="content-box reveal">
+        <p data-key="sejarah_paragraph">
+          Saya memulai perjalanan pendidikan di bangku sekolah dasar, kemudian
+          melanjutkan ke SMP Negeri 1 Tirto. Di sana, saya mulai tertarik pada
+          dunia teknologi, khususnya komputer dan jaringan. Ketertarikan ini
+          mendorong saya untuk memilih jurusan Teknik Komputer dan Jaringan
+          (TKJ) di SMK Ma’arif NU Tirto, Kabupaten Pekalongan. Saat ini, saya
+          fokus untuk mengembangkan keahlian teknis dan berpartisipasi aktif
+          dalam berbagai kegiatan untuk mengasah kreativitas dan kemampuan
+          problem-solving saya.
+        </p>
+      </div>
+    </section>
+    <section id="data" class="main-section">
+      <div class="page-title-container">
+        <h2 class="page-title">
+          <i class="fas fa-database"></i>
+          <span data-key="title_data">Kumpulan Data Pribadi</span>
+        </h2>
+      </div>
+      <div class="content-box reveal">
+        <h4>
+          <i class="fas fa-dice"></i>
+          <span data-key="title_hobi">Hobi (Frekuensi per Minggu)</span>
+        </h4>
+        <ul>
+          <li data-key="hobi_1">Mendesain logo: 4 kali</li>
+          <li data-key="hobi_2">Mendengarkan Musik: 2 kali</li>
+          <li data-key="hobi_3">Bermain Game: 1 kali</li>
+        </ul>
+        <h4>
+          <i class="fas fa-trophy"></i>
+          <span data-key="title_prestasi">Prestasi (Jumlah)</span>
+        </h4>
+        <ul>
+          <li data-key="prestasi_1">
+            Akademik: Belum ada (sedang berproses)
+          </li>
+          <li data-key="prestasi_2">
+            Non-akademik: Belum ada (sedang berproses)
+          </li>
+        </ul>
+        <h4>
+          <i class="fas fa-running"></i>
+          <span data-key="title_aktivitas">Aktivitas/Kegiatan Rutin (Jumlah per Minggu)</span>
+        </h4>
+        <ul>
+          <li data-key="aktivitas_1">Sekolah: 5 hari</li>
+          <li data-key="aktivitas_2">Mengikuti Lomba: 1 hari</li>
+          <li data-key="aktivitas_3">Kerja Kelompok: 2 hari</li>
+          <li data-key="aktivitas_4">Organisasi: 2 hari</li>
+        </ul>
+      </div>
+    </section>
+    <section id="analisis-data" class="main-section">
+      <div class="page-title-container">
+        <h2 class="page-title">
+          <i class="fas fa-chart-bar"></i>
+          <span data-key="title_analisis">Analisis Data Pribadi</span>
+        </h2>
+      </div>
+      <div class="content-box reveal">
+        <p data-key="analisis_intro">
+          Berikut adalah analisis sederhana dari data pribadi yang telah
+          dikumpulkan.
+        </p>
+        <div class="data-visualization">
+          <div class="chart-container">
+            <h4 data-key="chart_table_title">
+              <i class="fas fa-table"></i>
+              Tabel Hasil Perhitungan
+            </h4>
+            <table>
+              <thead>
+                <tr>
+                  <th data-key="th_analisis">Analisis Data Pribadi</th>
+                  <th data-key="th_hasil">Hasil Perhitungan</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td data-key="tr_avg">Rata-rata Aktivitas per Minggu</td>
+                  <td data-key="tr_avg_val">1.43 aktivitas/hari</td>
+                </tr>
+                <tr>
+                  <td data-key="tr_modus">Modus Hobi (Paling Sering)</td>
+                  <td data-key="tr_modus_val">Mendesain Logo</td>
+                </tr>
+                <tr>
+                  <td data-key="tr_percent">
+                    Persentase Prestasi Akademik
+                  </td>
+                  <td data-key="tr_percent_val">33.33%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="chart-container">
+            <h4 data-key="chart_prop_title">
+              <i class="fas fa-chart-pie"></i>
+              <span data-key="chart_prop_heading">Diagram Proporsi Prestasi</span>
+            </h4>
+            <canvas id="prestasiChart"></canvas>
+            <p data-key="chart_prop_desc">
+              Diagram ini menunjukkan bahwa prestasi non-akademik saya
+              mendominasi, mencerminkan minat dan pencapaian yang kuat di luar
+              bidang akademis formal.
+            </p>
+          </div>
+          <div class="chart-container">
+            <h4 data-key="chart_freq_title">
+              <i class="fas fa-chart-bar"></i>
+              <span data-key="chart_freq_heading">Diagram Frekuensi Hobi</span>
+            </h4>
+            <canvas id="hobiChart"></canvas>
+            <p data-key="chart_freq_desc">
+              Diagram batang ini menggambarkan frekuensi hobi per minggu. Hobi
+              yang paling sering dilakukan (modus) adalah Mendesain Logo.
+            </p>
+          </div>
+          <div class="chart-container">
+            <h4 data-key="chart_line_title">
+              <i class="fas fa-chart-line"></i>
+              <span data-key="chart_line_heading">Diagram Kurva Hobi</span>
+            </h4>
+            <canvas id="hobiLineChart"></canvas>
+            <p data-key="chart_line_desc">
+              Diagram kurva ini menunjukkan tren frekuensi hobi per minggu.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="pencapaian" class="main-section">
+      <div class="page-title-container">
+        <h2 class="page-title">
+          <i class="fas fa-award"></i>
+          <span data-key="title_pencapaian">Log Pencapaian</span>
+        </h2>
+      </div>
+      <div class="content-box reveal">
+        <p data-key="pencapaian_intro">
+          Rekam jejak keberhasilan saya di bidang desain grafis dan teknologi:
+        </p>
+        <ul>
+          <li data-key="pencapaian_1">
+            <i class="fas fa-handshake"></i>
+            Berhasil menyelesaikan 10+ proyek freelance pembuatan logo untuk
+            klien individu dan UMKM.
+          </li>
+          <li data-key="pencapaian_2">
+            <i class="fas fa-handshake"></i>
+            Juara 2 Lomba Tari Tradisional (Porseni IPNU IPPNU Kec. Tirto).
+          </li>
+        </ul>
+      </div>
+    </section>
+    <section id="proyek" class="main-section">
+      <div class="page-title-container">
+        <h2 class="page-title">
+          <i class="fas fa-palette"></i>
+          <span data-key="title_proyek">Portofolio Desain & Arsip Proyek</span>
+        </h2>
+      </div>
+      <div class="content-box reveal">
+        <p data-key="proyek_intro">
+          Berikut adalah beberapa contoh proyek desain logo yang telah saya
+          kerjakan sebagai freelancer. Setiap desain mencerminkan pendekatan
+          unik untuk memenuhi kebutuhan visual klien.
+        </p>
+        <div class="gallery">
+          <div class="gallery-item">
+            <img src="desainlogo1.png" alt="Desain Logo 1" />
+            <div class="gallery-item-info">
+              <h4 data-key="logo1_title">Logo 1</h4>
+              <p data-key="logo1_desc">
+                Desain logo ini menggabungkan gaya graffiti modern dengan elemen
+                tipografi tebal dan dinamis, menciptakan identitas visual yang
+                berani, ekspresif, dan penuh energi. Sentuhan warna kontras dan
+                bentuk yang mengalir memberikan kesan urban, kreatif, serta
+                merepresentasikan kebebasan berekspresi dalam seni jalanan.
+              </p>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <img src="desainlogo2.png" alt="Desain Logo 2" />
+            <div class="gallery-item-info">
+              <h4 data-key="logo2_title">Logo 2</h4>
+              <p data-key="logo2_desc">
+                Desain logo ini menggabungkan gaya graffiti hardcore dengan nuansa
+                monokrom hitam dan putih, menonjolkan kesan tegas, garang, dan penuh
+                karakter. Garis tajam serta tipografi bertekstur kasar menghadirkan
+                energi mentah khas street art, sekaligus memberikan identitas visual
+                yang kuat dan berani.
+              </p>
+            </div>
+          </div>
+        </div>
+        <p style="margin-top: 30px; text-align: center" data-key="more_contact">
+          Untuk melihat lebih banyak karya, silakan hubungi saya melalui email.
+        </p>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="footer-content-wrapper">
+      <h2 style="
+            display: inline-block;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 6px;
+            margin-bottom: 16px;
+          " data-key="contact_heading">
+        <i class="fas fa-address-book"></i>
+        Hubungi Saya
+      </h2>
+      <div class="contact-links">
+        <a href="https://wa.me/6285879562839" target="_blank" class="contact-item">
+          <i class="fab fa-whatsapp"></i>
+          <span data-key="contact_whatsapp">WhatsApp</span>
+        </a>
+        <a href="https://www.instagram.com/tricky.dsg" target="_blank" class="contact-item">
+          <i class="fab fa-instagram"></i>
+          <span data-key="contact_instagram">Instagram</span>
+        </a>
+        <a href="mailto:trickydsg@gmail.com" target="_blank" class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <span data-key="contact_email">Email</span>
+        </a>
+      </div>
+      <p class="contact-footer-text" data-key="contact_footer">
+        Jangan ragu untuk menghubungi saya melalui WhatsApp atau Instagram di
+        atas. Kami siap membantu kebutuhan desain dan konsultasi kamu.
+      </p>
+    </div>
+  </footer>
+  <script>
+    const dictionary = {
+      id: {
+        meta_title: 'Portofolio & Biodata',
+        nav_portfolio: 'PORTFOLIO',
+        nav_profil: 'Profil',
+        nav_visi: 'Visi & Misi',
+        nav_sejarah: 'Sejarah',
+        nav_data: 'Data',
+        nav_analisis: 'Analisis',
+        nav_pencapaian: 'Pencapaian',
+        nav_portofolio: 'Portofolio',
+        nav_kontak: 'Kontak',
+        title_main: 'PORTOFOLIO DAN BIODATA',
+        alt_photo: 'Foto M. Choirul Khizam',
+        name_full: 'M. Choirul Khizam',
+        job_title: '- Pelajar SMK -',
+        welcome_paragraph: 'Selamat datang di <b data-key="bold_portfolio">Portofolio</b> saya. Saya adalah <b data-key="bold_name">M. Choirul Khizam</b>, seorang individu yang berdedikasi dan bersemangat dalam menjelajahi frontier teknologi. Dengan latar belakang pendidikan di Teknik Komputer dan Jaringan, saya memiliki hasrat kuat untuk desain, kreativitas, dan membangun <b data-key="bold_innovative">solusi digital inovatif</b>. Portofolio ini adalah antarmuka menuju perjalanan edukasi dan pengembangan keahlian saya, mencakup visi, misi, dan pencapaian.',
+        bold_portfolio: 'Portofolio',
+        bold_name: 'M. Choirul Khizam',
+        bold_innovative: 'solusi digital inovatif',
+        heading_biodata: 'BIODATA',
+        label_name: 'Nama Lengkap:',
+        value_name: 'M. Choirul Khizam',
+        label_birth: 'Tanggal Lahir:',
+        value_birth: 'Pekalongan, 31 Agustus 2009',
+        label_citizen: 'Kewarganegaraan:',
+        value_citizen: 'Indonesia (ID)',
+        label_address: 'Alamat:',
+        value_address: 'Desa Pacar RT/RW 4/1, Jalan Ky. Khaeron, Kabupaten Pekalongan, Jawa Tengah',
+        label_email: 'Email:',
+        label_phone: 'Telepon:',
+        value_phone: '085879562839',
+        heading_pendidikan: 'PENDIDIKAN',
+        edu_smK: 'SMK (Saat Ini): SMK Ma’arif NU Tirto, Kab. Pekalongan',
+        edu_smp: 'SMP: SMP Negeri 1 Tirto (2024)',
+        edu_sd: 'SD: SD Negeri Pacar (2021)',
+        heading_skills: 'KEAHLIAN INTI',
+        skill_graphic: 'Desain Grafis: Rendering visual, manipulasi citra digital, dan kreasi aset grafis menggunakan software standar industri.',
+        title_visi: 'Visi & Misi',
+        visi_paragraph: 'Menjadi <span class="key-point" data-key="key_pelopor">pelopor teknologi muda</span> yang kompeten dan adaptif di <span class="key-point" data-key="key_era">era revolusi digital</span>, dengan kemampuan menciptakan solusi inovatif, mendorong batasan teknologi, dan memberikan dampak positif pada ekosistem digital global.',
+        key_pelopor: 'pelopor teknologi muda',
+        key_era: 'era revolusi digital',
+        sub_misi: 'MISI',
+        misi_1: 'Meningkatkan pengetahuan dan keterampilan secara berkelanjutan di bidang jaringan, pemrograman, dan keamanan siber melalui studi mandiri dan sertifikasi.',
+        misi_1_key: 'Upgrade Skillset:',
+        misi_2: 'Mengembangkan prototipe dan proyek-proyek berbasis teknologi yang inovatif, relevan, dan memecahkan masalah nyata.',
+        misi_2_key: 'Inovasi Proyek:',
+        misi_3: 'Membangun dan menjaga jejaring profesional dengan para ahli dan komunitas teknologi.',
+        misi_3_key: 'Kolaborasi Jaringan:',
+        misi_4: 'Mengimplementasikan praktik terbaik dan etika profesional dalam setiap aspek pekerjaan dan interaksi digital.',
+        misi_4_key: 'Etika Digital:',
+        sub_moto: 'MOTO HIDUP',
+        moto_text: '"<span class="key-point" data-key="moto_small">Setiap langkah kecil</span> Hari Ini, perlahan akan membawa kita menuju <span class="key-point" data-key="moto_big">Mimpi Besar</span> di Masa Depan."',
+        moto_small: 'Setiap langkah kecil',
+        moto_big: 'Mimpi Besar',
+        title_sejarah: 'Sejarah Hidup',
+        sejarah_paragraph: 'Saya memulai perjalanan pendidikan di bangku sekolah dasar, kemudian melanjutkan ke SMP Negeri 1 Tirto. Di sana, saya mulai tertarik pada dunia teknologi, khususnya komputer dan jaringan. Ketertarikan ini mendorong saya untuk memilih jurusan Teknik Komputer dan Jaringan (TKJ) di SMK Ma’arif NU Tirto, Kabupaten Pekalongan. Saat ini, saya fokus untuk mengembangkan keahlian teknis dan berpartisipasi aktif dalam berbagai kegiatan untuk mengasah kreativitas dan kemampuan problem-solving saya.',
+        title_data: 'Kumpulan Data Pribadi',
+        title_hobi: 'Hobi (Frekuensi per Minggu)',
+        hobi_1: 'Mendesain logo: 4 kali',
+        hobi_2: 'Mendengarkan Musik: 2 kali',
+        hobi_3: 'Bermain Game: 1 kali',
+        title_prestasi: 'Prestasi (Jumlah)',
+        prestasi_1: 'Akademik: Belum ada (sedang berproses)',
+        prestasi_2: 'Non-akademik: Belum ada (sedang berproses)',
+        title_aktivitas: 'Aktivitas/Kegiatan Rutin (Jumlah per Minggu)',
+        aktivitas_1: 'Sekolah: 5 hari',
+        aktivitas_2: 'Mengikuti Lomba: 1 hari',
+        aktivitas_3: 'Kerja Kelompok: 2 hari',
+        aktivitas_4: 'Organisasi: 2 hari',
+        title_analisis: 'Analisis Data Pribadi',
+        analisis_intro: 'Berikut adalah analisis sederhana dari data pribadi yang telah dikumpulkan.',
+        chart_table_title: 'Tabel Hasil Perhitungan',
+        th_analisis: 'Analisis Data Pribadi',
+        th_hasil: 'Hasil Perhitungan',
+        tr_avg: 'Rata-rata Aktivitas per Minggu',
+        tr_avg_val: '1.43 aktivitas/hari',
+        tr_modus: 'Modus Hobi (Paling Sering)',
+        tr_modus_val: 'Mendesain Logo',
+        tr_percent: 'Persentase Prestasi Akademik',
+        tr_percent_val: '33.33%',
+        chart_prop_title: 'Diagram Proporsi Prestasi',
+        chart_prop_heading: 'Diagram Proporsi Prestasi',
+        chart_prop_desc: 'Diagram ini menunjukkan bahwa prestasi non-akademik saya mendominasi, mencerminkan minat dan pencapaian yang kuat di luar bidang akademis formal.',
+        chart_freq_title: 'Diagram Frekuensi Hobi',
+        chart_freq_heading: 'Diagram Frekuensi Hobi',
+        chart_freq_desc: 'Diagram batang ini menggambarkan frekuensi hobi per minggu. Hobi yang paling sering dilakukan (modus) adalah Mendesain Logo.',
+        chart_line_title: 'Diagram Kurva Hobi',
+        chart_line_heading: 'Diagram Kurva Hobi',
+        chart_line_desc: 'Diagram kurva ini menunjukkan tren frekuensi hobi per minggu.',
+        title_pencapaian: 'Log Pencapaian',
+        pencapaian_intro: 'Rekam jejak keberhasilan saya di bidang desain grafis dan teknologi:',
+        pencapaian_1: 'Berhasil menyelesaikan 10+ proyek freelance pembuatan logo untuk klien individu dan UMKM.',
+        pencapaian_2: 'Juara 2 Lomba Tari Tradisional (Porseni IPNU IPPNU Kec. Tirto).',
+        title_proyek: 'Portofolio Desain & Arsip Proyek',
+        proyek_intro: 'Berikut adalah beberapa contoh proyek desain logo yang telah saya kerjakan sebagai freelancer. Setiap desain mencerminkan pendekatan unik untuk memenuhi kebutuhan visual klien.',
+        logo1_title: 'Logo 1',
+        logo1_desc: 'Desain logo ini menggabungkan gaya graffiti modern dengan elemen tipografi tebal dan dinamis, menciptakan identitas visual yang berani, ekspresif, dan penuh energi. Sentuhan warna kontras dan bentuk yang mengalir memberikan kesan urban, kreatif, serta merepresentasikan kebebasan berekspresi dalam seni jalanan.',
+        logo2_title: 'Logo 2',
+        logo2_desc: 'Desain logo ini menggabungkan gaya graffiti hardcore dengan nuansa monokrom hitam dan putih, menonjolkan kesan tegas, garang, dan penuh karakter. Garis tajam serta tipografi bertekstur kasar menghadirkan energi mentah khas street art, sekaligus memberikan identitas visual yang kuat dan berani.',
+        more_contact: 'Untuk melihat lebih banyak karya, silakan hubungi saya melalui email.',
+        contact_heading: 'Hubungi Saya',
+        contact_whatsapp: 'WhatsApp',
+        contact_instagram: 'Instagram',
+        contact_email: 'Email',
+        contact_footer: 'Jangan ragu untuk menghubungi saya melalui WhatsApp atau Instagram di atas. Kami siap membantu kebutuhan desain dan konsultasi kamu.',
+        chart_label_mendesain: 'Mendesain logo',
+        chart_label_music: 'Mendengarkan Musik',
+        chart_label_game: 'Bermain Game',
+        chart_label_akademik: 'Akademik',
+        chart_label_nonakademik: 'Non-Akademik',
+      },
+      jv: {
+        meta_title: 'Portofolio lan Biodata',
+        nav_portfolio: 'PORTFOLIO',
+        nav_profil: 'Profil',
+        nav_visi: 'Visi & Misi',
+        nav_sejarah: 'Sajarah',
+        nav_data: 'Data',
+        nav_analisis: 'Analisis',
+        nav_pencapaian: 'Pangasilan',
+        nav_portofolio: 'Portofolio',
+        nav_kontak: 'Kontak',
+        title_main: 'PORTOFOLIO LAN BIODATA',
+        alt_photo: 'Foto M. Choirul Khizam',
+        name_full: 'M. Choirul Khizam',
+        job_title: '- Wong Sekolah SMK -',
+        welcome_paragraph: 'Sugeng rawuh ing Portofolio kula. Kula punika M. Choirul Khizam, tiyang ingkang dedikasi lan semangat ing nglebeti jagad teknologi. Kanthi latar pendhidhikan Teknik Komputer lan Jaringan, kula remen desain, kreatifitas, lan ngembangake solusi digital anyar. Portofolio punika nggambarake lelampahan edukasi lan pangembangan kaprigelan kula, kalebu visi, misi, lan prestasi.',
+        bold_portfolio: 'Portofolio',
+        bold_name: 'M. Choirul Khizam',
+        bold_innovative: 'solusi digital inovatif',
+        heading_biodata: 'BIODATA',
+        label_name: 'Nama Lengkap:',
+        value_name: 'M. Choirul Khizam',
+        label_birth: 'Tanggal Lahir:',
+        value_birth: 'Pekalongan, 31 Agustus 2009',
+        label_citizen: 'Kewarganegaraan:',
+        value_citizen: 'Indonesia (ID)',
+        label_address: 'Alamat:',
+        value_address: 'Desa Pacar RT/RW 4/1, Dalem Ky. Khaeron, Kab. Pekalongan, Jawa Tengah',
+        label_email: 'Email:',
+        label_phone: 'Telpon:',
+        value_phone: '085879562839',
+        heading_pendidikan: 'PENDIDIKAN',
+        edu_smK: 'SMK (Sakmenika): SMK Ma’arif NU Tirto, Kab. Pekalongan',
+        edu_smp: 'SMP: SMP Negeri 1 Tirto (2024)',
+        edu_sd: 'SD: SD Negeri Pacar (2021)',
+        heading_skills: 'KEAHLIAN INTI',
+        skill_graphic: 'Desain Grafis: Rendering visual, manipulasi citra digital, lan nggawe aset grafis nganggo piranti lunak standar industri.',
+        title_visi: 'Visi & Misi',
+        visi_paragraph: 'Dadi pelopor teknologi enom sing kompeten lan adaptif ing jaman revolusi digital, kanthi kemampuan nggawe solusi inovatif, nglebokake wates teknologi, lan mènèhi pengaruh positif marang ekosistem digital global.',
+        key_pelopor: 'pelopor teknologi enom',
+        key_era: 'jaman revolusi digital',
+        sub_misi: 'MISI',
+        misi_1: 'Nambah kawruh lan katrampilan terus-terusan ing jaringan, pemrograman, lan keamanan siber liwat sinau mandiri lan sertifikasi.',
+        misi_1_key: 'Upgrade Skillset:',
+        misi_2: 'Ngembangake prototipe lan proyek teknologi sing inovatif lan migunani kanggo ngrampungake masalah nyata.',
+        misi_2_key: 'Inovasi Proyek:',
+        misi_3: 'Mbentuk lan njaga jejaring profesional karo para ahli lan komunitas teknologi.',
+        misi_3_key: 'Kolaborasi Jaringan:',
+        misi_4: 'Nglakokake praktik paling apik lan etika profesional ing saben aspek karya lan interaksi digital.',
+        misi_4_key: 'Etika Digital:',
+        sub_moto: 'MOTO URIP',
+        moto_text: '"Saben langkah cilik Dina Iki, alon-alon bakal nggawa kita marang Impen Ageng ing Mengko."',
+        moto_small: 'Saben langkah cilik',
+        moto_big: 'Impen Ageng',
+        title_sejarah: 'Sajarah Urip',
+        sejarah_paragraph: 'Kula miwiti pendidikan ing SD, teras nerusake ing SMP Negeri 1 Tirto. Ing kono kula miwiti kasengsem karo donya teknologi, utamane komputer lan jaringan. Minat kasebut ndadekake kula milih jurusan Teknik Komputer lan Jaringan (TKJ) ing SMK Ma’arif NU Tirto. Saiki kula fokus ngembangake kaprigelan teknis lan melu kegiyatan kanggo ngasah kreatifitas lan kemampuan nyelese masalah.',
+        title_data: 'Kumpulan Data Pribadi',
+        title_hobi: 'Kesenengan (Frekuensi saben Minggu)',
+        hobi_1: 'Desain logo: 4 kaping',
+        hobi_2: 'Ngrungokake Musik: 2 kaping',
+        hobi_3: 'Dolanan Game: 1 kaping',
+        title_prestasi: 'Prestasi (Jumlah)',
+        prestasi_1: 'Durung ana (sedang proses)',
+        prestasi_2: 'Durung ana (sedang proses)',
+        title_aktivitas: 'Kegiatan Rutin (Jumlah saben Minggu)',
+        aktivitas_1: 'Sekolah: 5 dina',
+        aktivitas_2: 'Melbu Lomba: 1 dina',
+        aktivitas_3: 'Kerja Kelompok: 2 dina',
+        aktivitas_4: 'Organisasi: 2 dina',
+        title_analisis: 'Analisis Data Pribadi',
+        analisis_intro: 'Ing ngisor iki analisis sederhana saka data pribadi sing wis diklumpukake.',
+        chart_table_title: 'Tabel Hasil Perhitungan',
+        th_analisis: 'Analisis Data Pribadi',
+        th_hasil: 'Hasil Perhitungan',
+        tr_avg: 'Rata-rata Aktivitas saben Minggu',
+        tr_avg_val: '1.43 aktivitas/dina',
+        tr_modus: 'Modus Kesenengan (Paling Sering)',
+        tr_modus_val: 'Desain Logo',
+        tr_percent: 'Persentase Prestasi Akademik',
+        tr_percent_val: '33.33%',
+        chart_prop_title: 'Diagram Proporsi Prestasi',
+        chart_prop_heading: 'Diagram Proporsi Prestasi',
+        chart_prop_desc: 'Diagram iki nuduhake yen prestasi non-akademik ngedominasi, nggambarake minat lan prestasi sing kuat njaba akademik formal.',
+        chart_freq_title: 'Diagram Frekuensi Kesenengan',
+        chart_freq_heading: 'Diagram Frekuensi Kesenengan',
+        chart_freq_desc: 'Diagram batang iki nuduhake frekuensi kesenengan saben minggu. Kesenengan sing paling kerep yaiku Desain Logo.',
+        chart_line_title: 'Diagram Kurva Kesenengan',
+        chart_line_heading: 'Diagram Kurva Kesenengan',
+        chart_line_desc: 'Diagram kurva iki nuduhake tren frekuensi kesenengan saben minggu.',
+        title_pencapaian: 'Log Prestasi',
+        pencapaian_intro: 'Rekam jejak sukses kula ing bidang desain grafis lan teknologi:',
+        pencapaian_1: 'Rampung luwih saka 10 proyek freelance nggawe logo kanggo klien individu lan UMKM.',
+        pencapaian_2: 'Juara 2 Lomba Tari Tradisional (Porseni IPNU IPPNU Kec. Tirto).',
+        title_proyek: 'Portofolio Desain & Arsip Proyek',
+        proyek_intro: 'Ing ngisor iki sawetara conto proyek desain logo sing wis tak garap minangka freelancer. Saben desain nggambarake pendekatan unik kanggo nyukupi kebutuhan visual klien.',
+        logo1_title: 'Logo 1',
+        logo1_desc: 'Desain iki nggabungake gaya graffiti modern karo elemen tipografi kandel lan dinamis, nggawe identitas visual sing wani lan ekspresif.',
+        logo2_title: 'Logo 2',
+        logo2_desc: 'Desain iki nggabungake gaya graffiti hardcore karo nuansa monokrom, nampilake karakter sing tegas lan kuat.',
+        more_contact: 'Kanggo ndeleng karya liyane, mangga hubungi kula liwat email.',
+        contact_heading: 'Hubungi Kula',
+        contact_whatsapp: 'WhatsApp',
+        contact_instagram: 'Instagram',
+        contact_email: 'Email',
+        contact_footer: 'Aja ragu kanggo ngubungi kula liwat WhatsApp utawa Instagram ing ndhuwur. Kita siap mbantu kebutuhan desain lan konsultasi sampeyan.',
+        chart_label_mendesain: 'Desain logo',
+        chart_label_music: 'Ngrungokake Musik',
+        chart_label_game: 'Dolanan Game',
+        chart_label_akademik: 'Akademik',
+        chart_label_nonakademik: 'Non-Akademik',
+      },
+      en: {
+        meta_title: 'Portfolio and Biography',
+        nav_portfolio: 'PORTFOLIO',
+        nav_profil: 'Profile',
+        nav_visi: 'Vision & Mission',
+        nav_sejarah: 'History',
+        nav_data: 'Data',
+        nav_analisis: 'Analysis',
+        nav_pencapaian: 'Achievements',
+        nav_portofolio: 'Portfolio',
+        nav_kontak: 'Contact',
+        title_main: 'PORTFOLIO AND BIOGRAPHY',
+        alt_photo: 'Photo of M. Choirul Khizam',
+        name_full: 'M. Choirul Khizam',
+        job_title: '- Vocational Student -',
+        welcome_paragraph: 'Welcome to my Portfolio. I am M. Choirul Khizam, a dedicated and enthusiastic individual exploring the frontiers of technology. With an education background in Computer and Network Engineering, I have a strong passion for design, creativity, and building innovative digital solutions. This portfolio is an interface to my educational journey and skill development, covering vision, mission, and achievements.',
+        bold_portfolio: 'Portfolio',
+        bold_name: 'M. Choirul Khizam',
+        bold_innovative: 'innovative digital solutions',
+        heading_biodata: 'BIODATA',
+        label_name: 'Full Name:',
+        value_name: 'M. Choirul Khizam',
+        label_birth: 'Date of Birth:',
+        value_birth: 'Pekalongan, 31 August 2009',
+        label_citizen: 'Nationality:',
+        value_citizen: 'Indonesia (ID)',
+        label_address: 'Address:',
+        value_address: 'Desa Pacar RT/RW 4/1, Jalan Ky. Khaeron, Kabupaten Pekalongan, Central Java',
+        label_email: 'Email:',
+        label_phone: 'Phone:',
+        value_phone: '085879562839',
+        heading_pendidikan: 'EDUCATION',
+        edu_smK: 'Vocational School (Current): SMK Ma’arif NU Tirto, Pekalongan Regency',
+        edu_smp: 'Junior High: SMP Negeri 1 Tirto (2024)',
+        edu_sd: 'Elementary: SD Negeri Pacar (2021)',
+        heading_skills: 'CORE SKILLS',
+        skill_graphic: 'Graphic Design: Visual rendering, digital image manipulation, and asset creation using industry-standard software.',
+        title_visi: 'Vision & Mission',
+        visi_paragraph: 'To become a young technology pioneer who is competent and adaptive in the digital revolution era, with the ability to create innovative solutions, push technological boundaries, and deliver positive impact on the global digital ecosystem.',
+        key_pelopor: 'young technology pioneer',
+        key_era: 'digital revolution era',
+        sub_misi: 'MISSION',
+        misi_1: 'Continuously improving knowledge and skills in networking, programming, and cybersecurity through self-study and certifications.',
+        misi_1_key: 'Upgrade Skillset:',
+        misi_2: 'Developing prototypes and technology-based projects that are innovative, relevant, and solve real problems.',
+        misi_2_key: 'Project Innovation:',
+        misi_3: 'Building and maintaining professional networks with experts and technology communities.',
+        misi_3_key: 'Network Collaboration:',
+        misi_4: 'Implementing best practices and professional ethics in every aspect of work and digital interaction.',
+        misi_4_key: 'Digital Ethics:',
+        sub_moto: 'LIFE MOTTO',
+        moto_text: '"Every small step Today will slowly bring us toward Big Dreams in the Future."',
+        moto_small: 'Every small step',
+        moto_big: 'Big Dreams',
+        title_sejarah: 'Life History',
+        sejarah_paragraph: 'I began my educational journey in elementary school, then continued to SMP Negeri 1 Tirto. There I became interested in technology, especially computers and networks. This interest led me to choose the Computer and Network Engineering (TKJ) major at SMK Ma’arif NU Tirto, Pekalongan Regency. Currently I focus on developing technical skills and actively participating in activities to sharpen creativity and problem-solving abilities.',
+        title_data: 'Personal Data Collection',
+        title_hobi: 'Hobbies (Frequency per Week)',
+        hobi_1: 'Logo design: 4 times',
+        hobi_2: 'Listening to Music: 2 times',
+        hobi_3: 'Playing Games: 1 time',
+        title_prestasi: 'Achievements (Count)',
+        prestasi_1: 'Academic: None yet (in progress)',
+        prestasi_2: 'Non-academic: None yet (in progress)',
+        title_aktivitas: 'Routine Activities (Per Week)',
+        aktivitas_1: 'School: 5 days',
+        aktivitas_2: 'Participating in Competitions: 1 day',
+        aktivitas_3: 'Group Work: 2 days',
+        aktivitas_4: 'Organization: 2 days',
+        title_analisis: 'Personal Data Analysis',
+        analisis_intro: 'Below is a simple analysis of the personal data collected.',
+        chart_table_title: 'Computation Results Table',
+        th_analisis: 'Personal Data Analysis',
+        th_hasil: 'Computation Results',
+        tr_avg: 'Average Activities per Week',
+        tr_avg_val: '1.43 activities/day',
+        tr_modus: 'Mode Hobby (Most Frequent)',
+        tr_modus_val: 'Logo Design',
+        tr_percent: 'Academic Achievement Percentage',
+        tr_percent_val: '33.33%',
+        chart_prop_title: 'Achievement Proportion Chart',
+        chart_prop_heading: 'Achievement Proportion Chart',
+        chart_prop_desc: 'This chart shows that non-academic achievements dominate, reflecting strong interests and accomplishments outside formal academics.',
+        chart_freq_title: 'Hobby Frequency Chart',
+        chart_freq_heading: 'Hobby Frequency Chart',
+        chart_freq_desc: 'This bar chart represents hobby frequency per week. The most frequently done hobby (mode) is Logo Design.',
+        chart_line_title: 'Hobby Trend Chart',
+        chart_line_heading: 'Hobby Trend Chart',
+        chart_line_desc: 'This line chart shows trends in hobby frequency per week.',
+        title_pencapaian: 'Achievement Log',
+        pencapaian_intro: 'My track record of successes in graphic design and technology:',
+        pencapaian_1: 'Successfully completed 10+ freelance logo projects for individual clients and MSMEs.',
+        pencapaian_2: '2nd Place Traditional Dance Competition (Porseni IPNU IPPNU Kec. Tirto).',
+        title_proyek: 'Design Portfolio & Project Archive',
+        proyek_intro: "Here are some examples of logo design projects I have worked on as a freelancer. Each design reflects a unique approach to meet clients' visual needs.",
+        logo1_title: 'Logo 1',
+        logo1_desc: 'This logo combines modern graffiti style with bold, dynamic typography elements, creating a bold, expressive, and energetic visual identity. The contrasting colors and flowing shapes convey an urban, creative feel and represent freedom of expression in street art.',
+        logo2_title: 'Logo 2',
+        logo2_desc: 'This logo blends hardcore graffiti style with monochrome black and white tones, emphasizing a fierce, rugged character. Sharp lines and textured typography present the raw energy typical of street art while giving a strong and bold visual identity.',
+        more_contact: 'To see more works, please contact me via email.',
+        contact_heading: 'Contact Me',
+        contact_whatsapp: 'WhatsApp',
+        contact_instagram: 'Instagram',
+        contact_email: 'Email',
+        contact_footer: 'Feel free to contact me via WhatsApp or Instagram above. We are ready to help your design and consulting needs.',
+        chart_label_mendesain: 'Logo design',
+        chart_label_music: 'Listening to Music',
+        chart_label_game: 'Playing Games',
+        chart_label_akademik: 'Academic',
+        chart_label_nonakademik: 'Non-Academic',
+      },
+      ar: {
+        meta_title: 'السيرة الذاتية والمعرض',
+        nav_portfolio: 'المعرض',
+        nav_profil: 'الملف الشخصي',
+        nav_visi: 'الرؤية والرسالة',
+        nav_sejarah: 'التاريخ',
+        nav_data: 'البيانات',
+        nav_analisis: 'التحليل',
+        nav_pencapaian: 'الإنجازات',
+        nav_portofolio: 'المعرض',
+        nav_kontak: 'اتصل',
+        title_main: 'السيرة الذاتية والمعرض',
+        alt_photo: 'صورة م. تشيرول خيزام',
+        name_full: 'م. تشيرول خيزام',
+        job_title: '- طالب المدرسة المهنية -',
+        welcome_paragraph: 'مرحبًا بكم في معرضي. أنا م. تشيرول خيزام، شخص ملتزم ومتحمس لاستكشاف آفاق التقنية. مع خلفية تعليمية في هندسة الحاسوب والشبكات، لدي شغف قوي بالتصميم والإبداع وبناء حلول رقمية مبتكرة. يعرض هذا المعرض رحلتي التعليمية وتطوير مهاراتي، ويشمل الرؤية، الرسالة، والإنجازات.',
+        bold_portfolio: 'المعرض',
+        bold_name: 'م. تشيرول خيزام',
+        bold_innovative: 'حلول رقمية مبتكرة',
+        heading_biodata: 'البيانات الشخصية',
+        label_name: 'الاسم الكامل:',
+        value_name: 'م. تشيرول خيزام',
+        label_birth: 'تاريخ الميلاد:',
+        value_birth: 'بكالونغان، 31 أغسطس 2009',
+        label_citizen: 'الجنسية:',
+        value_citizen: 'إندونيسيا (ID)',
+        label_address: 'العنوان:',
+        value_address: 'قرية باتشار RT/RW 4/1، شارع Ky. Khaeron، مقاطعة بكالونغان، جاوة الوسطى',
+        label_email: 'البريد الإلكتروني:',
+        label_phone: 'الهاتف:',
+        value_phone: '085879562839',
+        heading_pendidikan: 'التعليم',
+        edu_smK: 'المدرسة المهنية (حالياً): SMK Ma’arif NU Tirto، مقاطعة بكالونغان',
+        edu_smp: 'المدرسة الإعدادية: SMP Negeri 1 Tirto (2024)',
+        edu_sd: 'المدرسة الابتدائية: SD Negeri Pacar (2021)',
+        heading_skills: 'المهارات الأساسية',
+        skill_graphic: 'تصميم جرافيك: التصيير البصري، معالجة الصور الرقمية، وإنشاء الأصول الرسومية باستخدام برمجيات معيارية في الصناعة.',
+        title_visi: 'الرؤية والرسالة',
+        visi_paragraph: 'أن أكون رائدًا شابًا في التكنولوجيا كفؤًا وقادرًا على التكيف في عصر الثورة الرقمية، مع القدرة على ابتكار حلول مبتكرة، ودفع حدود التكنولوجيا، وتقديم تأثير إيجابي على النظام الرقمي العالمي.',
+        key_pelopor: 'رائد تكنولوجيا شاب',
+        key_era: 'عصر الثورة الرقمية',
+        sub_misi: 'الرسالة',
+        misi_1: 'رفع مستوى المعرفة والمهارات بشكل مستمر في مجالات الشبكات، والبرمجة، والأمن السيبراني من خلال الدراسة الذاتية والشهادات.',
+        misi_1_key: 'رفع مستوى المهارات:',
+        misi_2: 'تطوير نماذج أولية ومشاريع قائمة على التكنولوجيا مبتكرة وعملية لحل المشاكل الحقيقية.',
+        misi_2_key: 'ابتكار المشاريع:',
+        misi_3: 'بناء والحفاظ على شبكات مهنية مع الخبراء ومجتمعات التكنولوجيا.',
+        misi_3_key: 'التعاون الشبكي:',
+        misi_4: 'تنفيذ أفضل الممارسات والأخلاقيات المهنية في كل جانب من جوانب العمل والتفاعل الرقمي.',
+        misi_4_key: 'أخلاقيات رقمية:',
+        sub_moto: 'شعار الحياة',
+        moto_text: '"كل خطوة صغيرة اليوم ستأخذنا ببطء نحو أحلام كبيرة في المستقبل."',
+        moto_small: 'كل خطوة صغيرة',
+        moto_big: 'أحلام كبيرة',
+        title_sejarah: 'سيرة الحياة',
+        sejarah_paragraph: 'بدأت رحلتي التعليمية في المدرسة الابتدائية، ثم تابعت في SMP Negeri 1 Tirto، حيث بدأت أهتم بعالم التكنولوجيا، خصوصًا الحواسيب والشبكات. دفعتني هذه الاهتمامات لاختيار تخصص هندسة الحاسوب والشبكات في SMK Ma’arif NU Tirto، مقاطعة بكالونغان. أركز الآن على تطوير المهارات التقنية والمشاركة الفعالة في الأنشطة لصقل الإبداع وقدرات حل المشكلات.',
+        title_data: 'مجموعة البيانات الشخصية',
+        title_hobi: 'الهوايات (تواتر في الأسبوع)',
+        hobi_1: 'تصميم الشعارات: 4 مرات',
+        hobi_2: 'الاستماع للموسيقى: 2 مرات',
+        hobi_3: 'لعب الألعاب: مرة واحدة',
+        title_prestasi: 'الإنجازات (العدد)',
+        prestasi_1: 'أكاديمي: لا يوجد حالياً (قيد المعالجة)',
+        prestasi_2: 'غير أكاديمي: لا يوجد حالياً (قيد المعالجة)',
+        title_aktivitas: 'الأنشطة الروتينية (عدد في الأسبوع)',
+        aktivitas_1: 'المدرسة: 5 أيام',
+        aktivitas_2: 'المشاركة في المسابقات: يوم واحد',
+        aktivitas_3: 'العمل الجماعي: يومان',
+        aktivitas_4: 'المنظمة: يومان',
+        title_analisis: 'تحليل البيانات الشخصية',
+        analisis_intro: 'فيما يلي تحليل بسيط للبيانات الشخصية المجمعة.',
+        chart_table_title: 'جدول نتائج الحسبة',
+        th_analisis: 'تحليل البيانات الشخصية',
+        th_hasil: 'نتائج الحسبة',
+        tr_avg: 'متوسط الأنشطة في الأسبوع',
+        tr_avg_val: '1.43 نشاط/يوم',
+        tr_modus: 'الهواية الأكثر تكرارا',
+        tr_modus_val: 'تصميم الشعارات',
+        tr_percent: 'نسبة الإنجازات الأكاديمية',
+        tr_percent_val: '33.33%',
+        chart_prop_title: 'مخطط نسبة الإنجازات',
+        chart_prop_heading: 'مخطط نسبة الإنجازات',
+        chart_prop_desc: 'يُظهر هذا المخطط أن الإنجازات غير الأكاديمية تسود، مما يعكس الاهتمامات والإنجازات القوية خارج التعليم الرسمي.',
+        chart_freq_title: 'مخطط تكرار الهوايات',
+        chart_freq_heading: 'مخطط تكرار الهوايات',
+        chart_freq_desc: 'يوضح هذا الرسم البياني التكراري للهوايات في الأسبوع. أكثر الهوايات تكرارًا هي تصميم الشعارات.',
+        chart_line_title: 'مخطط اتجاه الهوايات',
+        chart_line_heading: 'مخطط اتجاه الهوايات',
+        chart_line_desc: 'يوضح هذا المخطط الخطي اتجاه تكرار الهوايات على مدار الأسبوع.',
+        title_pencapaian: 'سجل الإنجازات',
+        pencapaian_intro: 'سجل نجاحاتي في مجال التصميم الجرافيكي والتقنية:',
+        pencapaian_1: 'إنهاء أكثر من 10 مشاريع حرة لتصميم الشعارات لعملاء فرديين و للشركات الصغيرة والمتوسطة.',
+        pencapaian_2: 'المركز الثاني في مسابقة الرقص التقليدي (Porseni IPNU IPPNU - منطقة Tirto).',
+        title_proyek: 'معرض التصميم وأرشيف المشاريع',
+        proyek_intro: 'فيما يلي بعض أمثلة مشاريع تصميم الشعارات التي عملت عليها كمصمم مستقل. يعكس كل تصميم نهجًا فريدًا لتلبية الاحتياجات البصرية للعملاء.',
+        logo1_title: 'الشعار 1',
+        logo1_desc: 'يجمع هذا التصميم بين أسلوب الجرافيتي الحديث وعناصر الطباعة الجريئة والديناميكية، مما يخلق هوية بصرية جريئة ومعبرة وحيوية. الألوان المتباينة والأشكال المتدفقة تعطي انطباعًا حضريًا وإبداعيًا وتعبر عن حرية التعبير في فن الشوارع.',
+        logo2_title: 'الشعار 2',
+        logo2_desc: 'يجمع هذا التصميم بين أسلوب جرافيتي قوي ونغمات أحادية اللون بالأبيض والأسود، مما يبرز طابعًا صارمًا وقويًا. الخطوط الحادة والطباعة الملمسية تعرض طاقة خام تمثل فن الشوارع وتمنح هوية بصرية قوية وجريئة.',
+        more_contact: 'لمشاهدة المزيد من الأعمال، يرجى الاتصال بي عبر البريد الإلكتروني.',
+        contact_heading: 'اتصل بي',
+        contact_whatsapp: 'واتساب',
+        contact_instagram: 'انستغرام',
+        contact_email: 'البريد الإلكتروني',
+        contact_footer: 'لا تتردد في الاتصال بي عبر واتساب أو انستغرام أعلاه. نحن جاهزون لمساعدتك في احتياجات التصميم والاستشارات.',
+        chart_label_mendesain: 'تصميم الشعارات',
+        chart_label_music: 'الاستماع للموسيقى',
+        chart_label_game: 'لعب الألعاب',
+        chart_label_akademik: 'أكاديمي',
+        chart_label_nonakademik: 'غير أكاديمي',
+      },
+    };
+    
+    function setLanguage(lang) {
+      if (!dictionary[lang]) lang = 'id';
+      document.documentElement.lang = lang === 'jv' ? 'jv' : lang;
+      if (lang === 'ar') {
+        document.body.classList.add('rtl');
+        document.body.setAttribute('dir', 'rtl');
+      } else {
+        document.body.classList.remove('rtl');
+        document.body.setAttribute('dir', 'ltr');
+      }
+      document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (!key) return;
+        const val = dictionary[lang][key];
+        if (typeof val === 'string') {
+          if (el.children.length === 0) {
+            el.textContent = val;
+          } else {
+            el.innerHTML = val;
+          }
+        }
+      });
+      document.querySelectorAll('[data-key-alt]').forEach(img => {
+        const key = img.getAttribute('data-key-alt');
+        if (!key) return;
+        const val = dictionary[lang][key];
+        if (val) img.alt = val;
+      });
+      updateChartsForLanguage(lang);
+    }
+    
+    let hobiChartObj = null;
+    let prestasiChartObj = null;
+    let hobiLineChartObj = null;
+    
+    function renderCharts(lang = 'id') {
+      const dict = dictionary[lang] || dictionary['id'];
+      const hobiCtx = document.getElementById('hobiChart')?.getContext('2d');
+      const prestasiCtx = document.getElementById('prestasiChart')?.getContext('2d');
+      const hobiLineCtx = document.getElementById('hobiLineChart')?.getContext('2d');
+    
+      const hobiLabels = [
+        dict['chart_label_mendesain'],
+        dict['chart_label_music'],
+        dict['chart_label_game'],
+      ];
+      // Corrected labels to pull from dictionary and add percentage dynamically
+      const prestasiLabels = [
+        dict['chart_label_akademik'] + ' (33.33%)',
+        dict['chart_label_nonakademik'] + ' (66.67%)',
+      ];
+    
+      if (hobiCtx) {
+        if (hobiChartObj) hobiChartObj.destroy();
+        hobiChartObj = new Chart(hobiCtx, {
+          type: 'bar',
+          data: {
+            labels: hobiLabels,
+            datasets: [{
+              label: dict['chart_freq_heading'],
+              data: [4, 2, 1],
+              backgroundColor: [
+                'rgba(229,57,53,0.8)',
+                'rgba(244,244,244,0.8)',
+                'rgba(180,180,180,0.8)',
+              ],
+              borderColor: ['#e53935', '#f4f4f4', '#B4B4B4'],
+              borderWidth: 1,
+            }, ],
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                display: false,
+              },
+              title: {
+                display: true,
+                text: dict['chart_freq_heading'],
+                color: 'white', /* Changed to white */
+              },
+            },
+            scales: {
+              x: {
+                ticks: {
+                  color: 'white', /* Changed to white */
+                },
+                grid: {
+                  color: 'rgba(255, 255, 255, 0.1)',
+                }
+              },
+              y: {
+                ticks: {
+                  color: 'white', /* Changed to white */
+                },
+                grid: {
+                  color: 'rgba(255, 255, 255, 0.1)',
+                }
+              },
+            },
+          },
+        });
+      }
+      if (prestasiCtx) {
+        if (prestasiChartObj) prestasiChartObj.destroy();
+        prestasiChartObj = new Chart(prestasiCtx, {
+          type: 'pie',
+          data: {
+            labels: prestasiLabels,
+            datasets: [{
+              data: [1, 2],
+              backgroundColor: ['rgba(229,57,53,0.8)', 'rgba(74,74,74,0.8)'],
+            }, ],
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              title: {
+                display: true,
+                text: dict['chart_prop_heading'],
+                color: 'white', /* Changed to white */
+              },
+              legend: {
+                labels: {
+                  color: 'white', /* Changed to white */
+                },
+              },
+            },
+          },
+        });
+      }
+      if (hobiLineCtx) {
+        if (hobiLineChartObj) hobiLineChartObj.destroy();
+        hobiLineChartObj = new Chart(hobiLineCtx, {
+          type: 'line',
+          data: {
+            labels: hobiLabels,
+            datasets: [{
+              label: dict['chart_line_heading'],
+              data: [4, 2, 1],
+              fill: false,
+              borderColor: '#e53935',
+              tension: 0.1,
+            }, ],
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              title: {
+                display: true,
+                text: dict['chart_line_heading'],
+                color: 'white', /* Changed to white */
+              },
+            },
+            scales: {
+              x: {
+                ticks: {
+                  color: 'white', /* Changed to white */
+                },
+                grid: {
+                  color: 'rgba(255, 255, 255, 0.1)',
+                }
+              },
+              y: {
+                ticks: {
+                  color: 'white', /* Changed to white */
+                },
+                grid: {
+                  color: 'rgba(255, 255, 255, 0.1)',
+                }
+              },
+            },
+          },
+        });
+      }
+    }
+    
+    function updateChartsForLanguage(lang) {
+      if (typeof renderCharts === 'function') {
+        renderCharts(lang);
+      }
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      // Set the initial language on load
+      setLanguage('id'); 
+      const revealElements = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('active');
+          });
+        }, {
+          threshold: 0.15
+        }
+      );
+      revealElements.forEach(el => {
+        observer.observe(el);
+      });
+      document.querySelectorAll('.lang-button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const lang = btn.getAttribute('data-lang');
+          setLanguage(lang);
+        });
+      });
+      // Initial render of charts after setting the language
+      renderCharts('id');
+    });
+
+    // --- Kode Baru untuk Latar Belakang Interaktif ---
+    const canvas = document.getElementById('constellation-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H;
+    let stars = [];
+    let mouse = {
+      x: null,
+      y: null
+    };
+
+    // Fungsi untuk mengatur ukuran canvas
+    function resizeCanvas() {
+      W = window.innerWidth;
+      H = window.innerHeight;
+      canvas.width = W;
+      canvas.height = H;
+    }
+
+    // Objek Bintang
+    class Star {
+      constructor(x, y, radius, color) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.color = color;
+        this.vx = Math.random() * 0.5 - 0.25;
+        this.vy = Math.random() * 0.5 - 0.25;
+        this.alpha = 0;
+        this.fadeInSpeed = Math.random() * 0.005 + 0.002;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        ctx.fillStyle = `rgba(${this.color}, ${this.alpha})`;
+        ctx.fill();
+      }
+
+      update() {
+        // Efek memudar dan muncul
+        this.alpha += this.fadeInSpeed;
+        if (this.alpha > 1) {
+          this.alpha = 1;
+          this.fadeInSpeed *= -1;
+        } else if (this.alpha < 0) {
+          this.alpha = 0;
+          this.x = Math.random() * W;
+          this.y = Math.random() * H;
+          this.vx = Math.random() * 0.5 - 0.25;
+          this.vy = Math.random() * 0.5 - 0.25;
+          this.fadeInSpeed = Math.random() * 0.005 + 0.002;
+        }
+
+        // Pergerakan acak
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // Memantul di batas layar
+        if (this.x < 0 || this.x > W) this.vx *= -1;
+        if (this.y < 0 || this.y > H) this.vy *= -1;
+
+        this.draw();
+      }
+    }
+
+    // Buat bintang-bintang
+    function createStars(count) {
+      for (let i = 0; i < count; i++) {
+        const x = Math.random() * W;
+        const y = Math.random() * H;
+        const radius = Math.random() * 1.5 + 0.5;
+        // Warna bintang putih keabu-abuan
+        const color = '240, 240, 240';
+        stars.push(new Star(x, y, radius, color));
+      }
+    }
+
+    // Fungsi untuk menghubungkan bintang-bintang
+    function connectStars() {
+      for (let a of stars) {
+        for (let b of stars) {
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 100) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(240, 240, 240, ${1 - dist / 100})`;
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+    
+    // Fungsi untuk menghubungkan bintang ke kursor
+    function connectToMouse() {
+      if (mouse.x === null) return;
+
+      for (let star of stars) {
+        const dx = star.x - mouse.x;
+        const dy = star.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 150) {
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(229, 57, 53, ${1 - dist / 150})`;
+          ctx.lineWidth = 1;
+          ctx.moveTo(star.x, star.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Loop animasi
+    function animate() {
+      requestAnimationFrame(animate);
+      ctx.clearRect(0, 0, W, H);
+      connectStars();
+      connectToMouse();
+      for (let star of stars) {
+        star.update();
+      }
+    }
+
+    // Event listener
+    window.addEventListener('load', () => {
+      resizeCanvas();
+      createStars(150); // Jumlah bintang yang ingin Anda tampilkan
+      animate();
+    });
+
+    window.addEventListener('resize', resizeCanvas);
+
+    window.addEventListener('mousemove', (event) => {
+      mouse.x = event.clientX;
+      mouse.y = event.clientY;
+    });
+
+    // Reset posisi mouse saat kursor meninggalkan canvas
+    window.addEventListener('mouseout', () => {
+      mouse.x = null;
+      mouse.y = null;
+    });
+
+    // Menangani sentuhan pada perangkat mobile
+    window.addEventListener('touchmove', (event) => {
+      if (event.touches.length > 0) {
+        mouse.x = event.touches[0].clientX;
+        mouse.y = event.touches[0].clientY;
+      }
+    });
+
+    window.addEventListener('touchend', () => {
+      mouse.x = null;
+      mouse.y = null;
+    });
+  </script>
+</body>
+</html>
